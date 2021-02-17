@@ -11,17 +11,15 @@ import Button from '../../components/Button';
 import {Form} from '@unform/mobile';
 import {FormHandles} from '@unform/core';
 
-
 import {useNavigation} from '@react-navigation/native';
 
 import {Container, Title, ForgotPassword, ForgotPasswordText, CreateAccountButton, CreateAccountButtonText} from './styles';
 
 const SignIn: React.FC = () => {
+    const formRef = useRef<FormHandles>(null);
     const navigation = useNavigation();
 
-    const formRef = useRef<FormHandles>(null);
-
-    const handleSignIn = useCallback((data: object) => {
+    const handleSignIn = useCallback((data: object)=> {
         console.log(data);
     }, []);
 
@@ -41,18 +39,20 @@ const SignIn: React.FC = () => {
                         <View>
                             <Title>Faça seu logon</Title>
                         </View>
-                        <Form ref={formRef} onSubmit={handleSignIn}>
+                        <Form ref={formRef} onSubmit={handleSignIn} style={{width: '100%'}}>
                             <Input name="email" icon="mail" placeholder="E-mail"/>
                             <Input name="password" icon="lock" placeholder="Senha"/>
 
                             <Button onPress={() => {
                                 formRef.current?.submitForm();
-                            }}>Entrar</Button>
-
+                            }}>
+                                Entrar
+                            </Button>
+                        </Form>
                             <ForgotPassword onPress={() => {}}>
                                 <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
                             </ForgotPassword>
-                        </Form>
+                        
                     </Container>
                 </ScrollView>
             </KeyboardAvoidingView>
